@@ -2,6 +2,7 @@ import { Col, Form, Button, Row } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
+import axios from 'axios';
 
 export default function FormPage() {
 
@@ -57,20 +58,22 @@ export default function FormPage() {
                     <Button variant="primary" onClick={() => { 
 
                             let json = {
+                                usuario:{
                                 nome : name,
-                                date : value,
+                                data : value,
                                 telefone : telephone,
-                                whats : whats,
+                                whatsapp : whats,
                                 marca : marca,
-                                model : model,
+                                modelo : model,
                                 ano : ano,
                                 placa : placa
+                                },
+                                erros: []
                             }
 
                             console.log(json);
 
-                            
-
+                            axios.post('http://localhost:6000/usuarios', json).then(res => alert(res)).catch(e => alert(e));
                      }}>
                         Confirmar
                     </Button>
