@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './page/Home';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import FormPage from './component/Form';
 
 function App() {
   return (
-    <Home></Home>
+    <FormPage />
   );
 }
 

@@ -1,10 +1,8 @@
-import Form from "../component/Form";
-
+import FormPage from "../component/Form";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home(){
     return (
-        <div className="App">
-            <Form />
-        </div>
+            <FormPage />
       );
 }
