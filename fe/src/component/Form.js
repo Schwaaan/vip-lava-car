@@ -8,7 +8,7 @@ export default function FormPage() {
 
     const [name, setName] = useState(null);
     const [telephone, setTelephone] = useState(null);
-    const [whats, setWhats] = useState(null);
+    const [whats, setWhats] = useState(false);
     const [marca, setMarca] = useState(null);
     const [model, setModel] = useState(null);
     const [ano, setAno] = useState(null);
@@ -28,7 +28,7 @@ export default function FormPage() {
                     <Form.Control type="number" placeholder="Digite seu telefone" required  onChange={e => {setTelephone(e.target.value)}}/>
                 </Form.Group>
                 <Form.Group >
-                    <Form.Check type="checkbox" label="Possui whatssap?" onChange={e => {setWhats(e.target.value)}}/>
+                    <Form.Check type="checkbox" label="Possui whatssap?" onChange={e => {setWhats(e.target.checked)}}/>
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Marca do carro</Form.Label>
