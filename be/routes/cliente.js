@@ -14,21 +14,23 @@ router.post('/', [
     check('data', 'Data é campo obrigatório.').trim().escape().notEmpty().custom((reqData) => {
         const dataAtual = new Date(Date.now());
         const data = new Date(reqData);
-        if(diaUtil(data)) {
-            return data >= dataAtual        
+        if (diaUtil(data)) {
+            return data >= dataAtual
         }
         return false;
     }).withMessage("Data inválida."),
-    check('horario', 'Horário é campo obrigatório.').trim().escape().notEmpty()
 ], (req, res) => {
     const erros = validationResult(req);
-    const usuario = req.body;
+    const cliente = req.body;
+    console.log(`Dados do cliente:`);
+    console.log(cliente);
 
     const contexto = {
-        usuario: usuario,
+        usuario: cliente,
         erros: erros.array()
     };
     if (!erros.isEmpty()) {
+        console.log(erros);
         return res.status(422).json(contexto);
     } else {
         return res.json(contexto);

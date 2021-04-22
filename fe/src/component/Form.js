@@ -21,30 +21,30 @@ export default function FormPage() {
             <Form>
                 <Form.Group >
                     <Form.Label>Nome Completo</Form.Label>
-                    <Form.Control type="text" placeholder="Digite seu nome" required onChange={e => {setName(e.target.value)}} />
+                    <Form.Control type="text" placeholder="Digite seu nome" required onChange={e => { setName(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Telefone para Contato</Form.Label>
-                    <Form.Control type="number" placeholder="Digite seu telefone" required  onChange={e => {setTelephone(e.target.value)}}/>
+                    <Form.Control type="number" placeholder="Digite seu telefone" required onChange={e => { setTelephone(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
-                    <Form.Check type="checkbox" label="Possui whatssap?" onChange={e => {setWhats(e.target.checked)}}/>
+                    <Form.Check type="checkbox" label="Possui whatssap?" onChange={e => { setWhats(e.target.checked) }} />
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Marca do carro</Form.Label>
-                    <Form.Control type="text" placeholder="Digite a marca do carro"  onChange={e => {setMarca(e.target.value)}} />
+                    <Form.Control type="text" placeholder="Digite a marca do carro" onChange={e => { setMarca(e.target.value) }} />
                 </Form.Group>
                 <Form.Group  >
                     <Form.Label>Modelo</Form.Label>
-                    <Form.Control placeholder="Digite o modelo do carro" type="text" onChange={e => {setModel(e.target.value)}} />
+                    <Form.Control placeholder="Digite o modelo do carro" type="text" onChange={e => { setModel(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Ano</Form.Label>
-                    <Form.Control type="number" placeholder="Digite o ano do carro" onChange={e => {setAno(e.target.value)}}/>
+                    <Form.Control type="number" placeholder="Digite o ano do carro" onChange={e => { setAno(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Placa</Form.Label>
-                    <Form.Control type="text" placeholder="Digite a placa do carro"   onChange={e => {setPlaca(e.target.value)}} />
+                    <Form.Control type="text" placeholder="Digite a placa do carro" onChange={e => { setPlaca(e.target.value) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
@@ -55,26 +55,26 @@ export default function FormPage() {
                     />
                 </Form.Group>
                 <Row>
-                    <Button variant="primary" onClick={() => { 
+                    <Button variant="primary" onClick={() => {
 
-                            let json = {
-                                usuario:{
-                                nome : name,
-                                data : value,
-                                telefone : telephone,
-                                whatsapp : whats,
-                                marca : marca,
-                                modelo : model,
-                                ano : ano,
-                                placa : placa
-                                },
-                                erros: []
-                            }
+                        const cliente = {
+                            nome: name,
+                            telefone: telephone,
+                            whatsapp: whats,
+                            marca: marca,
+                            modelo: model,
+                            ano: ano,
+                            placa: placa,
+                            data: value
+                        };
 
-                            console.log(json);
-
-                            axios.post('http://localhost:6000/usuarios', json).then(res => alert(res)).catch(e => alert(e));
-                     }}>
+                        axios.post('http://localhost:6000/clientes', cliente).then(res => {
+                            console.log(res);
+                        }).catch(e => {
+                            alert(`Ocorreu um erro na aplicação. Contate o administrador.`);
+                            console.log(e.response.data);
+                        });
+                    }}>
                         Confirmar
                     </Button>
                     <Col sm={2}>
