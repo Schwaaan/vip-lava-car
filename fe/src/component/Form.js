@@ -71,8 +71,13 @@ export default function FormPage() {
                         axios.post('http://localhost:6000/clientes', cliente).then(res => {
                             console.log(res);
                         }).catch(e => {
-                            alert(`Ocorreu um erro na aplicação. Contate o administrador.`);
-                            console.log(e.response.data);
+                            let msg = "";
+                            let erros = e.response.data.erros;
+                            for(let s = 0; s < erros.length; s++) {
+                                msg += erros[s].msg + "\n";
+                            }
+                            alert(msg);
+                            console.log(e.response.data.erros[0].msg);
                         });
                     }}>
                         Confirmar
