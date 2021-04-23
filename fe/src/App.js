@@ -1,11 +1,18 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Home from './page/Home';
+import { Row, Container} from "react-bootstrap";
+import FormPage from "./component/Form";
+import Title from "./component/title/Title";
+import './App.css';
 
-function App() {
+export default function App() {
   return (
-    <Home />
+    <Container>
+      <Row className="justify-content-center">
+        <Title></Title>
+      </Row>
+      <Row>
+        <FormPage></FormPage>
+      </Row>
+      </Container>
   );
 }
-
-export default App;
