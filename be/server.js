@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const port = 6000;
+const port = 8060;
 const hostname = "0.0.0.0";
 const usuariosRouter = require('./routes/cliente');
 

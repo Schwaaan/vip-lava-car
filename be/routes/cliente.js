@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { check, body, validationResult } = require('express-validator');
 const diaUtil = require('@lfreneda/eh-dia-util');
 
+var x = "";
+
 router.post('/', [
     // nome completo, telefone para contato (opcional) e se este possui WhatsApp; a marca, modelo, ano (opcional) e placa do veículo; e o dia, mês, ano e o horário do agendamento.
     check('nome', 'Nome é campo obrigatório.').trim().escape().notEmpty(),
@@ -14,21 +16,30 @@ router.post('/', [
     check('data', 'Data é campo obrigatório.').trim().escape().notEmpty().custom((reqData) => {
         const dataAtual = new Date(Date.now());
         const data = new Date(reqData);
-        if (diaUtil(data)) {
-            return data >= dataAtual
+
+        if (data.getMinutes() != 00 && data.getMinutes() != 30) {
+            return false; 
         }
-        return false;
-    }).withMessage("Data inválida."),
+
+        if ((data.getHours() -3) < 08 || (data.getHours() -3)  > 18) {
+            return false;
+        }
+        
+        if (!diaUtil(data)) {
+            return false;
+        }
+
+        return data >= dataAtual
+    }).withMessage("Fora do horário de funcionamento.")
 ], (req, res) => {
     const erros = validationResult(req);
     const cliente = req.body;
-    console.log(`Dados do cliente:`);
-    console.log(cliente);
 
     const contexto = {
         usuario: cliente,
         erros: erros.array()
     };
+
     if (!erros.isEmpty()) {
         console.log(erros);
         return res.status(422).json(contexto);

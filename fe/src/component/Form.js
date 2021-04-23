@@ -1,5 +1,4 @@
 import { Col, Form, Button, Row } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
@@ -17,7 +16,7 @@ export default function FormPage() {
 
 
     return (
-        <Col sm={2}>
+        <Col sm={4} className={"container"}>
             <Form>
                 <Form.Group >
                     <Form.Label>Nome Completo</Form.Label>
@@ -47,8 +46,8 @@ export default function FormPage() {
                     <Form.Control type="text" placeholder="Digite a placa do carro" onChange={e => { setPlaca(e.target.value) }} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>
-                        Selecione o dia e horário</Form.Label>
+                    <Form.Label>Selecione o dia e horário</Form.Label>
+                    <br />
                     <DateTimePicker
                         onChange={setDate}
                         value={value}
@@ -68,16 +67,16 @@ export default function FormPage() {
                             data: value
                         };
 
-                        axios.post('http://localhost:6000/clientes', cliente).then(res => {
+                        axios.post('http://localhost:8060/clientes', cliente).then(res => {
                             console.log(res);
+                            alert("Horário marcado com sucesso!")
                         }).catch(e => {
                             let msg = "";
                             let erros = e.response.data.erros;
                             for(let s = 0; s < erros.length; s++) {
                                 msg += erros[s].msg + "\n";
                             }
-                            alert(msg);
-                            console.log(e.response.data.erros[0].msg);
+                            alert(msg);    
                         });
                     }}>
                         Confirmar

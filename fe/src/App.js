@@ -1,10 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import FormPage from './component/Form';
+import Home from './page/Home';
 
 function App() {
   return (
-    <FormPage />
+    <Home />
   );
 }
 
