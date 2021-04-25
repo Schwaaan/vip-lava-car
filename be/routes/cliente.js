@@ -14,29 +14,34 @@ router.post('/', [
     check('ano', 'Ano deve ser maior que 1950.').trim().escape().optional().isInt({ min: 1950 }).toInt(),
     check('placa', 'Placa é campo obrigatório.').trim().escape().notEmpty(),
     check('data', 'Data é campo obrigatório.').trim().escape().notEmpty().custom((reqData) => {
+
         const dataAtual = new Date(Date.now());
         const data = new Date(reqData);
 
-        if (data.getMinutes() != 00 && data.getMinutes() != 30) {
-            return false; 
-        }
+        console.log(`\nIsso é um console.log(data.getHours()) = ${data.getHours()}\nPorque aqui são ${data.getHours()} horas e no json são ${data.getHours()+3} horas?\n`);
 
-        if ((data.getHours() -3) < 08 || (data.getHours() -3)  > 18) {
-            return false;
-        }
+        if ((data.getHours()) < 08 || (data.getHours())  > 17) return false;
         
-        if (!diaUtil(data)) {
-            return false;
-        }
+        if (!diaUtil(data)) return false;
 
-        return data >= dataAtual
-    }).withMessage("Fora do horário de funcionamento.")
+        return data >= dataAtual;
+
+    }).withMessage("Fora do horário de funcionamento.").custom((reqData) => {
+
+        const data = new Date(reqData);
+
+        return (data.getMinutes() == 00 || data.getMinutes() == 30);
+
+    }).withMessage("Só pode marcar em janelas de 30 minutos.")
 ], (req, res) => {
     const erros = validationResult(req);
     const cliente = req.body;
 
+    console.log("Requisição:");
+    console.log(cliente);
+
     const contexto = {
-        usuario: cliente,
+        cliente: cliente,
         erros: erros.array()
     };
 
@@ -44,6 +49,8 @@ router.post('/', [
         console.log(erros);
         return res.status(422).json(contexto);
     } else {
+        console.log("Resposta:");
+        console.log(contexto.cliente);
         return res.json(contexto);
     }
 });
