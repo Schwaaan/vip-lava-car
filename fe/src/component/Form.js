@@ -1,5 +1,5 @@
 import { Col, Form, Button, Row } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 
@@ -13,11 +13,52 @@ export default function FormPage() {
     const [ano, setAno] = useState(null);
     const [placa, setPlaca] = useState(null);
     const [value, setDate] = useState(new Date());
+    const formRef = useRef(null);
+
+    const handleReset = () => {
+        formRef.current.reset();
+    }
+
+    const cancelRegister = () => {
+
+        alert("Cadastro cancelado com sucesso! :C")
+
+        handleReset()
+    }
+
+    const handleSubmit = () => {
+        
+        const cliente = {
+            nome: name,
+            telefone: telephone,
+            whatsapp: whats,
+            marca: marca,
+            modelo: model,
+            ano: ano,
+            placa: placa,
+            data: value
+        };
+
+        axios.post('http://localhost:8060/clientes', cliente).then(res => {
+            console.log(res);
+            alert("Horário marcado com sucesso!")
+        }).catch(e => {
+            let msg = "";
+            let erros = e.response.data.erros;
+            for(let s = 0; s < erros.length; s++) {
+                msg += erros[s].msg + "\n";
+            }
+            alert(msg);   
+
+        });
+
+       handleReset();
+    }
 
 
     return (
         <Col sm={4} className={"container"}>
-            <Form>
+            <Form ref={formRef}>
                 <Form.Group >
                     <Form.Label>Nome Completo</Form.Label>
                     <Form.Control type="text" placeholder="Digite seu nome" required onChange={e => { setName(e.target.value) }} />
@@ -54,35 +95,11 @@ export default function FormPage() {
                     />
                 </Form.Group>
                 <Row>
-                    <Button variant="primary" onClick={() => {
-
-                        const cliente = {
-                            nome: name,
-                            telefone: telephone,
-                            whatsapp: whats,
-                            marca: marca,
-                            modelo: model,
-                            ano: ano,
-                            placa: placa,
-                            data: value
-                        };
-
-                        axios.post('http://localhost:8060/clientes', cliente).then(res => {
-                            console.log(res);
-                            alert("Horário marcado com sucesso!")
-                        }).catch(e => {
-                            let msg = "";
-                            let erros = e.response.data.erros;
-                            for(let s = 0; s < erros.length; s++) {
-                                msg += erros[s].msg + "\n";
-                            }
-                            alert(msg);    
-                        });
-                    }}>
+                    <Button variant="primary" onClick={() => handleSubmit()} >
                         Confirmar
                     </Button>
                     <Col sm={2}>
-                        <Button variant="primary">
+                        <Button variant="primary" onClick={() => cancelRegister()}>
                             Cancelar
                         </Button>
                     </Col>
