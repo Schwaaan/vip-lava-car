@@ -13,7 +13,7 @@ export default function FormPage() {
     const [model, setModel] = useState(null);
     const [ano, setAno] = useState(null);
     const [placa, setPlaca] = useState(null);
-    const [value, setDate] = useState(new Date());
+    const [value, setDate] = useState(null);
     const formRef = useRef(null);
 
     const handleReset = () => {
@@ -43,6 +43,7 @@ export default function FormPage() {
         axios.post('http://localhost:8060/clientes', cliente).then(res => {
             console.log(res);
             alert("Horário marcado com sucesso!")
+            handleReset();
         }).catch(e => {
             let msg = "";
             let erros = e.response.data.erros;
@@ -53,7 +54,6 @@ export default function FormPage() {
 
         });
 
-        handleReset();
     }
 
 
