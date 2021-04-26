@@ -1,6 +1,6 @@
 
 export default function Title() {
     return (
-            <h1>Lavar car Vip</h1>
+            <h1>Vip Lavar Car</h1>
     );
 }

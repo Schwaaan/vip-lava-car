@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 
+
 export default function FormPage() {
 
     const [name, setName] = useState(null);
@@ -27,7 +28,7 @@ export default function FormPage() {
     }
 
     const handleSubmit = () => {
-        
+
         const cliente = {
             nome: name,
             telefone: telephone,
@@ -45,14 +46,14 @@ export default function FormPage() {
         }).catch(e => {
             let msg = "";
             let erros = e.response.data.erros;
-            for(let s = 0; s < erros.length; s++) {
+            for (let s = 0; s < erros.length; s++) {
                 msg += erros[s].msg + "\n";
             }
-            alert(msg);   
+            alert(msg);
 
         });
 
-       handleReset();
+        handleReset();
     }
 
 
@@ -60,22 +61,22 @@ export default function FormPage() {
         <Col sm={4} className={"container"}>
             <Form ref={formRef}>
                 <Form.Group >
-                    <Form.Label>Nome Completo</Form.Label>
-                    <Form.Control type="text" placeholder="Digite seu nome" required onChange={e => { setName(e.target.value) }} />
+                    <Form.Label>Nome Completo *</Form.Label>
+                    <Form.Control type="text" placeholder="Digite seu nome" onChange={e => { setName(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
                     <Form.Label>Telefone para Contato</Form.Label>
-                    <Form.Control type="number" placeholder="Digite seu telefone" required onChange={e => { setTelephone(e.target.value) }} />
+                    <Form.Control type="number" placeholder="Digite seu telefone" onChange={e => { setTelephone(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
-                    <Form.Check type="checkbox" label="Possui whatssap?" onChange={e => { setWhats(e.target.checked) }} />
+                    <Form.Check type="checkbox" label="É whatssap?" onChange={e => { setWhats(e.target.checked) }} />
                 </Form.Group>
                 <Form.Group >
-                    <Form.Label>Marca do carro</Form.Label>
+                    <Form.Label>Marca do carro *</Form.Label>
                     <Form.Control type="text" placeholder="Digite a marca do carro" onChange={e => { setMarca(e.target.value) }} />
                 </Form.Group>
                 <Form.Group  >
-                    <Form.Label>Modelo</Form.Label>
+                    <Form.Label>Modelo*</Form.Label>
                     <Form.Control placeholder="Digite o modelo do carro" type="text" onChange={e => { setModel(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
@@ -83,23 +84,28 @@ export default function FormPage() {
                     <Form.Control type="number" placeholder="Digite o ano do carro" onChange={e => { setAno(e.target.value) }} />
                 </Form.Group>
                 <Form.Group >
-                    <Form.Label>Placa</Form.Label>
+                    <Form.Label>Placa*</Form.Label>
                     <Form.Control type="text" placeholder="Digite a placa do carro" onChange={e => { setPlaca(e.target.value) }} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Selecione o dia e horário</Form.Label>
+                    <Form.Label>Selecione o dia e horário*</Form.Label>
                     <br />
                     <DateTimePicker
                         onChange={setDate}
                         value={value}
                     />
                 </Form.Group>
+                <p>
+                    * Campos obrigatórios
+                </p>
                 <Row>
-                    <Button variant="primary" onClick={() => handleSubmit()} >
-                        Confirmar
-                    </Button>
                     <Col sm={2}>
-                        <Button variant="primary" onClick={() => cancelRegister()}>
+                        <Button variant="info" onClick={() => handleSubmit()} >
+                            Confirmar
+                        </Button>
+                    </Col>
+                    <Col sm={3}>
+                        <Button variant="info" onClick={() => cancelRegister()}>
                             Cancelar
                         </Button>
                     </Col>
