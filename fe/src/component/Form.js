@@ -17,6 +17,15 @@ export default function FormPage() {
     const formRef = useRef(null);
 
     const handleReset = () => {
+        setName(null);
+        setTelephone(null);
+        setWhats(null);
+        setMarca(null);
+        setModel(null);
+        setAno(null);
+        setPlaca(null);
+        setDate(null);
+        
         formRef.current.reset();
     }
 
