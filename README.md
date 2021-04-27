@@ -18,7 +18,8 @@
 <h3>Informações para rodar o projeto</h3>
     <h2> Rodar o back-end </h2>
       <p> Para rodar o back-end o usuario deve entrar na pasta /be e deve rodar os seguintes comandos : <p>
-          <h3>node server.js</h3>
+          <h2>npm install</h2>
+          <h2>node server.js</h2>
     <h2>Rodar o front-end</h2>
      <p>Para rodar o front-end o usuario deve entrar na pasta /fe e deve rodar os seguintes comandos : <p>
           <h2>npm install</h2>
