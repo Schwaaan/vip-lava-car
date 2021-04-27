@@ -1,11 +1,20 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Row, Container } from "react-bootstrap";
+import FormPage from "./component/Form";
+import Title from "./component/title/Title";
 import './App.css';
-import Home from './page/Home';
+import NavBar from './component/navBar/NavBar';
 
-function App() {
+export default function App() {
   return (
-    <Home></Home>
+    <div>
+      <NavBar className="nav"></NavBar>
+      <Row className="justify-content-center title">
+        <Title></Title>
+      </Row>
+      <Row className="hero-bg">
+        <FormPage></FormPage>
+      </Row>
+    </div>
   );
 }
-
-export default App;
